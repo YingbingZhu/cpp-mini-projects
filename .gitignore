@@ -1,0 +1,14 @@
+# Ignore compiled binaries
+*.exe
+*.out
+*.o
+*.obj
+
+# Ignore CLion IDE settings
+.idea/
+cmake-build-debug/
+CMakeLists.txt.user
+
+# Ignore system files
+.DS_Store
+Thumbs.db
