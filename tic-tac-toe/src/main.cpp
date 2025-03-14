@@ -27,7 +27,7 @@ int main()
 
   // Create a text object to display the win message
   sf::Text winMessage(font);
-  winMessage.setCharacterSize(50);
+  winMessage.setCharacterSize(20);
   winMessage.setFillColor(sf::Color::Red);
 
   // Variable to store the current win message

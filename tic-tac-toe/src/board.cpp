@@ -63,6 +63,20 @@ void Board::handleClick(int mouseX, int mouseY) {
 
   texts[row][col]->setString(std::string(1, marker));
 
+  // Center the text in the cell.
+  // 1) Retrieve the bounding box of the newly set string
+  sf::FloatRect bounds = texts[row][col]->getLocalBounds();
+
+  // 2) Set the origin to the center of the text (including any offset in bounds.left/top)
+  texts[row][col]->setOrigin(
+      bounds.getCenter()
+  );
+
+  // 3) Position the text so its origin (now the center) lines up with the cell’s center
+  float cellCenterX = col * cellSize + (cellSize / 2.f);
+  float cellCenterY = row * cellSize + (cellSize / 2.f);
+  texts[row][col]->setPosition({cellCenterX, cellCenterY});
+
   playerXTurn = !playerXTurn;
 }
 
