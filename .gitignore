@@ -12,3 +12,13 @@ CMakeLists.txt.user
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+
+# Ignore build directories
+build/
+cmake-build-*/
+tic-tac-toe/build/
+tic-tac-toe/cmake-build-*/
+
+# Ignore dependency directories explicitly (optional, since build/ covers this)
+tic-tac-toe/build/_deps/

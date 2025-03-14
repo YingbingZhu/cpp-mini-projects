@@ -1,0 +1,14 @@
+# Target labels
+ freetype-populate
+# Source files and their labels
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/CMakeFiles/freetype-populate
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/CMakeFiles/freetype-populate.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test.rule
+/Users/yingbingzhu/CLionProjects/cpp-mini-projects/tic-tac-toe/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update.rule

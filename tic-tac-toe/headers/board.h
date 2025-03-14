@@ -4,15 +4,21 @@
 
 #pragma once
 
-#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <memory>
 
 class Board {
-private:
-  char board[3][3];
 public:
   Board();
-  void display();
-  bool placeMarker(int position, char marker);
-  bool checkWinner() const;
+  void draw(sf::RenderWindow& window);
+  void handleClick(int x, int y);
+  bool checkWin(char marker) const;
   bool isFull() const;
+  void reset();
+private:
+  char grid[3][3];
+  sf::RectangleShape cells[3][3];
+  sf::Font font;
+  std::unique_ptr<sf::Text> texts[3][3];
+  bool playerXTurn;
 };
