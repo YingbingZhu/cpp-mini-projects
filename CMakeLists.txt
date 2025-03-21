@@ -12,3 +12,4 @@ endif()
 
 # Add subdirectories for each subproject
 add_subdirectory(tic-tac-toe)
+add_subdirectory(spaceship)
