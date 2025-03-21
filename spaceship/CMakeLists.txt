@@ -18,7 +18,11 @@ file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 add_executable(spaceship src/Main.cpp
         src/Player.cpp
         headers/Player.h
-        headers/Bullet.h)
+        headers/Bullet.h
+        src/Enemy.cpp
+        src/EnemyManager.cpp
+        headers/EnemyManager.h
+)
 target_compile_features(spaceship PRIVATE cxx_std_17)
 
 # Link SFML Graphics

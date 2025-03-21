@@ -9,6 +9,7 @@ class Bullet {
   public:
   sf::CircleShape shape;
   sf::Vector2f velocity;
+  bool active = true;
 
   // The bullet is created at a given position.
   Bullet(sf::Vector2f startPosition) {
@@ -23,5 +24,7 @@ class Bullet {
   void update(float deltaTime) {
     shape.move(velocity * deltaTime);
   }
+  bool isActive() const { return active; }
+  void deactivate() { active = false; }
 };
 

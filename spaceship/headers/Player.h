@@ -17,9 +17,17 @@ class Player {
   void update(float deltaTime);
   void processShooting(float deltaTime);
   void updateBullets(float deltaTime);
-  void drawBullets(sf::RenderWindow& window);
+  void drawBullets(sf::RenderWindow& window) const;
+  void deductHealth(int amount);
+  int getHealth() const { return health; }
+  sf::Vector2f getPosition() const { return position; }
+  void draw(sf::RenderWindow& window);
 
-  public:
+  // Getter for bullets
+  const std::vector<Bullet>& getBullets() const { return bullets; }
+  std::vector<Bullet>& getBullets() { return bullets; }  // Non-const version for modification
+
+  private:
   sf::Texture texture;
   sf::Sprite sprite;
   sf::Vector2f position;
@@ -29,8 +37,16 @@ class Player {
   // Cooldown timer (in seconds) for shooting.
   float shootCooldown = 0.f;
 
-  // Container to hold active bullets.
+  const float shootCooldownTime = 0.5f;  // Added back: Time between shots (in seconds)
+
   std::vector<Bullet> bullets;
+
+  // Health bar UI
+  sf::RectangleShape healthBarBack;
+  sf::RectangleShape healthBarFront;
+  const float healthBarWidth = 200.f;
+  const float healthBarHeight = 20.f;
+  const int maxHealth = 3;
 };
 
 

@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "../headers/Player.h"
+#include "../headers/Enemy.h"
+#include "../headers/EnemyManager.h"
 
 int main()
 {
@@ -13,10 +15,25 @@ int main()
   // Set the frame rate limit to 60 frames per second for smooth gameplay.
   window.setFramerateLimit(60);
 
-  // Create an instance of the Player.
-  Player player;
+  // Load font for Game Over
+  sf::Font font;
+  if (!font.openFromFile("resources/Arial.ttf")) {
+    std::cerr << "Failed to load font\n";
+  }
 
+  sf::Text gameOverText(font, "GAME OVER", 64);
+  gameOverText.setFillColor(sf::Color::Red);
+  gameOverText.setStyle(sf::Text::Bold);
+
+  // Center the text
+  sf::FloatRect textBounds = gameOverText.getLocalBounds();
+  gameOverText.setOrigin({textBounds.size.x / 2, textBounds.size.y / 2});
+  gameOverText.setPosition({400.f, 300.f});
+
+  Player player;
+  EnemyManager enemy_manager(3.f);;
   sf::Clock clock;
+
 
   // Main game loop: runs until the window is closed.
   while (window.isOpen())
@@ -30,23 +47,33 @@ int main()
     }
 
     float deltaTime = clock.restart().asSeconds();
-    // Update player movement and shooting.
+
+    // Update all game objects
     player.update(deltaTime);
     player.processShooting(deltaTime);
     player.updateBullets(deltaTime);
+    enemy_manager.update(deltaTime, player);
 
-    // Update game objects here.
-    // For example: move the player, update enemy positions, check collisions, etc.
+    if (player.getHealth() <= 0) {
+      break;
+    }
 
-    // Render: Clear the window with a black background.
+    // Render
     window.clear(sf::Color::Black);
-
-    // Draw game objects here.
-    window.draw(player.sprite);
+    player.draw(window);
+    enemy_manager.draw(window);
     player.drawBullets(window);
+    window.display();
+  }
 
+  // Game Over screen
+  while (window.isOpen()) {
+    while (const std::optional event = window.pollEvent())
+      if (event->is<sf::Event::Closed>())
+        window.close();
 
-    // Display the rendered frame on the screen.
+    window.clear();
+    window.draw(gameOverText);
     window.display();
   }
 
