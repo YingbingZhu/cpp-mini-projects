@@ -12,6 +12,8 @@
 #include <mutex>
 #include <thread>
 #include <vector>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 std::vector<int> clients;
 std::mutex clients_mutex;
