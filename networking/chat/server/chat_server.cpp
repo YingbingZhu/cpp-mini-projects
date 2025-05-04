@@ -30,8 +30,9 @@ void handle_client(SSL* ssl, int client_socket) {
       break;
     }
 
-    std::cout << "Received " << bytes_read << " bytes\n";
-    // broadcasr the messgae to all clients
+    std::cout << "Received " << bytes_read << " bytes: "
+            << std::string(buffer, bytes_read) << std::endl;
+    // broadcast the message to all clients
     clients_mutex.lock();
     for (SSL* other_ssl : clients) {
       if (other_ssl != ssl) {

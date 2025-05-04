@@ -7,14 +7,16 @@
 #include <thread>
 #include <cstring>
 #include <unistd.h>
+#include <netinet/in.h>
 #include <arpa/inet.h>
-#include <sys/socket.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
-void receive_messages(int sock) {
+void receive_messages(SSL* ssl) {
   char buffer[1024];
   while (true) {
     memset(buffer, 0, sizeof(buffer));
-    ssize_t bytes_received = recv(sock, buffer, sizeof(buffer) - 1, 0);
+    int bytes_received = SSL_read(ssl, buffer, sizeof(buffer));
     if (bytes_received <= 0) {
       std::cerr << "Server disconnected or error\n";
       break;
@@ -24,6 +26,18 @@ void receive_messages(int sock) {
 }
 
 int main() {
+  // Initialize OpenSSL
+  SSL_library_init();
+  SSL_load_error_strings();
+  OpenSSL_add_all_algorithms();
+
+  // Create SSL context
+  SSL_CTX* ctx = SSL_CTX_new(TLS_client_method());
+  if (!ctx) {
+    ERR_print_errors_fp(stderr);
+    return 1;
+  }
+
   // input username
   std::string username;
   std::cout << "Enter your username: ";
@@ -48,25 +62,36 @@ int main() {
     std::cerr << "Failed to connect to server\n";
     return 1;
   }
+  SSL* ssl = SSL_new(ctx);
+  SSL_set_fd(ssl, sock);
+
+  if (SSL_connect(ssl) <= 0) {
+    std::cerr << "TLS handshake failed\n";
+    ERR_print_errors_fp(stderr);
+    return 1;
+  }
 
   std::cout << "Connected to server!\n";
 
   // start thread to receive messages
-  std::thread receiver(receive_messages, sock);
+  std::thread receiver_thread(receive_messages, ssl);
+  receiver_thread.detach();
 
   // main thread to send messages
   std::string message;
   while (true) {
     std::getline(std::cin, message);
-    if (message == "exit") {
-      break;
-    }
+    if (message == "exit") break;
+    if (message.empty()) continue;
     std::string full_message = username + ": " + message;
-    send(sock, full_message.c_str(), full_message.size(), 0);
+    SSL_write(ssl, full_message.c_str(), full_message.size());
   }
 
   // clean up
+  SSL_shutdown(ssl);
+  SSL_free(ssl);
   close(sock);
-  receiver.detach();
+  SSL_CTX_free(ctx);
+  EVP_cleanup();
   return 0;
 }
